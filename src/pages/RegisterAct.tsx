@@ -28,7 +28,7 @@ export default function RegisterAct() {
   const patientId = patient.trim() ? generatePatientId(patient) : "";
   const hopitalFinal = hopital === "other" ? customHopital : hopital;
 
-  const handleSubmit = () => {
+const handleSubmit = async () => {
     const errs: string[] = [];
     if (!medecin.trim()) errs.push("Le nom du médecin est obligatoire.");
     if (!patient.trim()) errs.push("Le nom du patient est obligatoire.");
@@ -45,6 +45,27 @@ export default function RegisterAct() {
       hopital: hopitalFinal.trim(),
       description: description.trim(),
     });
+
+    console.log("BLOCK REÇU:", block);
+
+    try {
+      await fetch("http://localhost:5000/api/records", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          medecin: medecin.trim(),
+          patient_id: patientId,
+          patient_nom: patient.trim(),
+          type_evenement: typeEvt,
+          hopital: hopitalFinal.trim(),
+          hash_bloc: block.hash_bloc,
+        }),
+      });
+      console.log("✅ Envoyé au backend");
+    } catch (error) {
+      console.error("❌ Erreur:", error);
+    }
+
     setResult(block);
     setMedecin("");
     setPatient("");
