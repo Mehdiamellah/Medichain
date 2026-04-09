@@ -13,7 +13,7 @@ export default function PatientHistory() {
   useEffect(() => {
     const fetchHistory = async () => {
       try {
-        const response = await fetch("http://localhost:5000/api/records");
+        const response = await fetch("https://medichain-d365.onrender.com");
         const data = await response.json();
         setAllRecords(data);
       } catch (error) {
