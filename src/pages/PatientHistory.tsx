@@ -15,7 +15,8 @@ export default function PatientHistory() {
       try {
         const response = await fetch("https://medichain-d365.onrender.com");
         const data = await response.json();
-        setAllRecords(data);
+        setAllRecords(Array.isArray(data) ? data : []);
+        
       } catch (error) {
         console.error("Erreur Backend:", error);
       } finally {
