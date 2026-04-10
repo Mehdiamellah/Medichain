@@ -49,7 +49,7 @@ const handleSubmit = async () => {
     console.log("BLOCK REÇU:", block);
 
     try {
-      await fetch("https://medichain-d365.onrender.com", {
+      await fetch("https://medichain-d365.onrender.com/api/records", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
